@@ -293,7 +293,6 @@ async def echo(bot, update):
                     if response_json["thumbnail"] is not None:
                         thumbnail = response_json["thumbnail"]
                         thumbnail_image = response_json["thumbnail"]
-        )
     else:
         # fallback for nonnumeric port a.k.a seedbox.io
         inline_keyboard = []
