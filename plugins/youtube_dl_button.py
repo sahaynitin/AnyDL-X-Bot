@@ -226,6 +226,14 @@ async def youtube_dl_call_back(bot, update):
                     if metadata.has("duration"):
                         duration = metadata.get('duration').seconds
             # get the correct width, height, and duration for videos greater than 10MB
+
+            if not os.path.exists(thumb_image_path):
+                mes = await thumb(update.from_user.id)
+                if mes != None:
+                    m = await bot.get_messages(update.message.chat.id, mes.msg_id)
+                    await m.download(file_name=thumb_image_path)
+                    thumb_image_path = thumb_image_path
+
             if os.path.exists(thumb_image_path):
                 width = 0
                 height = 0
