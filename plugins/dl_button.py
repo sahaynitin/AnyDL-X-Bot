@@ -25,6 +25,7 @@ else:
 
 # the Strings used for this "thing"
 from translation import Translation
+from helper_funcs.database import thumb
 
 import pyrogram
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
@@ -136,6 +137,17 @@ async def ddl_call_back(bot, update):
                     if metadata.has("duration"):
                         duration = metadata.get('duration').seconds
             # get the correct width, height, and duration for videos greater than 10MB
+            
+            thumb_image_path = Config.DOWNLOAD_LOCATION + \
+                "/" + str(update.from_user.id) + ".jpg"
+
+            if not os.path.exists(thumb_image_path):
+                mes = await thumb(update.from_user.id)
+                if mes != None:
+                    m = await bot.get_messages(update.message.chat.id, mes.msg_id)
+                    await m.download(file_name=thumb_image_path)
+                    thumb_image_path = thumb_image_path
+
             if os.path.exists(thumb_image_path):
                 width = 0
                 height = 0
