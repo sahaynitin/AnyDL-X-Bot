@@ -33,6 +33,8 @@ from helper_funcs.ran_text import random_char
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from pyrogram.errors import UserNotParticipant, UserBannedInChannel
 
+from helper_funcs.database import *
+
 @pyrogram.Client.on_message(pyrogram.filters.regex(pattern=".*http.*"))
 async def echo(bot, update):
     if update.from_user.id in Config.BANNED_USERS:
@@ -280,17 +282,17 @@ async def echo(bot, update):
             update.message_id,
             update.chat.id
         )
-        if os.path.exists(thumb_image_path):
-            im = Image.open(thumb_image_path).convert("RGB")
-            im.save(thumb_image_path.replace(".webp", ".jpg"), "jpeg")
-        else:
-            thumb_image_path = None
-        await bot.send_message(
-            chat_id=update.chat.id,
-            text=Translation.FORMAT_SELECTION.format(thumbnail) + "\n" + Translation.SET_CUSTOM_USERNAME_PASSWORD,
-            reply_markup=reply_markup,
-            parse_mode="html",
-            reply_to_message_id=update.message_id
+        if not os.path.exists(thumb_image_path):
+            mes = await thumb(update.from_user.id)
+            if mes != None:
+                m = await bot.get_messages(update.chat.id, mes.msg_id)
+                await m.download(file_name=thumb_image_path)
+                thumb_image_path = thumb_image_path
+            else:
+                if "thumbnail" in response_json:
+                    if response_json["thumbnail"] is not None:
+                        thumbnail = response_json["thumbnail"]
+                        thumbnail_image = response_json["thumbnail"]
         )
     else:
         # fallback for nonnumeric port a.k.a seedbox.io
