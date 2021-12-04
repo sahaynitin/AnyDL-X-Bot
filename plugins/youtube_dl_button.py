@@ -28,6 +28,7 @@ from translation import Translation
 import pyrogram
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
 
+from pyrogram.types import InputMediaPhoto
 from helper_funcs.display_progress import progress_for_pyrogram, humanbytes
 from helper_funcs.help_uploadbot import DownLoadFile
 from hachoir.metadata import extractMetadata
