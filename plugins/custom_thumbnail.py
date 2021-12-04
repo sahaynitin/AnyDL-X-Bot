@@ -21,6 +21,7 @@ else:
 
 # the Strings used for this "thing"
 from translation import Translation
+from helper_funcs.database import *
 
 import pyrogram
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
