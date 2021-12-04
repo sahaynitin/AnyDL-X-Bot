@@ -329,12 +329,12 @@ async def youtube_dl_call_back(bot, update):
             end_two = datetime.now()
             time_taken_for_upload = (end_two - end_one).seconds
             #
-            '''media_album_p = []
+            media_album_p = []
             if images is not None:
                 i = 0
-                caption = "JOIN : https://t.me/TGBotsCollection \n For the List of Telegram Bots"
+                caption = "Done"
                 if is_w_f:
-                    caption = "/upgrade to Plan D to remove the watermark\nJOIN : https://t.me/TGBotsCollection \n For the List of Telegram Bots"
+                    caption = "Done"
                 for image in images:
                     if os.path.exists(image):
                         if i == 0:
@@ -357,7 +357,7 @@ async def youtube_dl_call_back(bot, update):
                 disable_notification=True,
                 reply_to_message_id=update.message.message_id,
                 media=media_album_p
-            )'''
+            )
             #
             try:
                 os.remove(thumb_image_path)
