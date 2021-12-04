@@ -200,7 +200,7 @@ async def youtube_dl_call_back(bot, update):
             )
         else:
             is_w_f = False
-            '''images = await generate_screen_shots(
+            images = await generate_screen_shots(
                 download_directory,
                 tmp_directory_for_each_user,
                 is_w_f,
